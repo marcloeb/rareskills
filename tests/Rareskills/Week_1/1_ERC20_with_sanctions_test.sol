@@ -8,29 +8,32 @@ import "../../../contracts/Rareskills/Week_1/1_ERC20_with_sanctions.sol";
 // File name has to end with '_test.sol', this file can contain more than one testSuite contracts
 contract ERC20withSanctionTest {
     ERC20withSanction token;
+    address acc0; //owner by default
     
     /// More special functions are: 'beforeEach', 'beforeAll', 'afterEach' & 'afterAll'
     function beforeAll() public {
-        token = new ERC20withSanction("Token with Sanctions","TWS",100000);
-        Assert.equal(token.balanceOf(token.owner()),100000,"Minting unsuccessful!");
+        token = new ERC20withSanction("Token with Sanctions","TWS");
+        acc0 = TestsAccounts.getAccount(0);
     }
 
     function checkBannUser()public{
         token.bannUser(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148));
-        Assert.equal(token.isUserBanned(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148)), true, "User was banned but is not showing.");
+        Assert.equal(token.banned(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148)), true, "User was banned but is not showing.");
     }
 
     function checkUnBannUser()public{
         token.unBannUser(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148));
-        Assert.equal(token.isUserBanned(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148)), false, "User was un-banned but is not showing.");
+        Assert.equal(token.banned(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148)), false, "User was un-banned but is not showing.");
     }
 
     function checkNotExisitingBannUser()public{             
-        Assert.equal(token.isUserBanned(address(0x0A098Eda01Ce92ff4A4CCb7A4fFFb5A43EBC70DC)), false, "Not existing User shows returns not false from banned array.");
+        Assert.equal(token.banned(address(0x0A098Eda01Ce92ff4A4CCb7A4fFFb5A43EBC70DC)), false, "Not existing User shows returns not false from banned array.");
     }
 
-    function checkBannedUserCannotTransfer() public{
-        
+    /// #value: 100000
+    /// #sender: account-0
+    function checkBannedUserCannotTransfer() public payable{
+        token.buyTokens{value: 100000}();
         token.transfer(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148), 100); 
         token.bannUser(address(0xdD870fA1b7C4700F2BD7f44238821C26f7392148));
 

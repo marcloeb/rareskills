@@ -12,17 +12,21 @@ contract ERC20SaleBuyback is ERC20withSanction {
     mapping(address=>uint256) public losses;
     uint256 internal allLosses;
     
-    event Logging(string, uint, uint);
+    //Purchase event with amount and price
+    event Purchase(uint, uint); 
 
-    constructor() ERC20withSanction("TokenBonding", "TBK",0) {         
+    //Sell event with amount, price and loss
+    event Sell(uint,uint, uint);
+
+    constructor() ERC20withSanction("TokenBonding", "TBK") {         
     }
     
-    function buyTokens()external payable{ //value is in wei
+    function buyTokens()external override payable{ //value is in wei
         //given price, searched amount
         uint tokens = calculateTokenAmountForPrice();
 
         //log
-        emit Logging("buying", tokens, 0);
+        emit Purchase(msg.value, tokens);
 
         //mint
         //_mint(msg.sender, tokens);
@@ -30,7 +34,7 @@ contract ERC20SaleBuyback is ERC20withSanction {
     }
 
     
-    function sellTokens(uint amount)external payable{ 
+    function sellTokens(uint amount)external override payable{ 
         uint price = calculateSellingPrice(amount);
         
         //calculate 10% loss
@@ -39,16 +43,12 @@ contract ERC20SaleBuyback is ERC20withSanction {
         allLosses += loss;
 
         //log
-         emit Logging("sell", price, loss);
+         emit Sell(amount, price, loss);
 
         //burn coins
         _burn(msg.sender, amount);
-
-        //send back ether with 10% loss
-        //payable(msg.sender).transfer(price - loss);
         
         payable(msg.sender).transfer(price - loss);
-
     }
 
 
@@ -64,6 +64,9 @@ contract ERC20SaleBuyback is ERC20withSanction {
         //important: 
         //value sent is included in contract balance -> no need to add
         //all losses need to be substracted from pool balance.
+        //Important 2nd
+        //do always multiply FRIST!
+        //Comment from Jeffery to be gas efficient: use parameter to give value back, not separate variable 
         tokenAmount = sqrt((address(this).balance - allLosses) * 2 / LINEAR_BONDING_CURVE_MULTIPLE) - totalSupply() ;
     }
 
@@ -73,10 +76,9 @@ contract ERC20SaleBuyback is ERC20withSanction {
     * where x is the new totalSupply of tokens ./. the selling amount of tokens
     * poolvalue in Ether on contract ./. the calculated value is what we give back
     */
-    function calculateSellingPrice(uint amount)private view returns (uint){        
-        uint newMarketCap = LINEAR_BONDING_CURVE_MULTIPLE * (totalSupply()- amount) * (totalSupply()- amount) / 2 ;
-        uint sellingPrice = address(this).balance - allLosses - newMarketCap;
-        return sellingPrice;
+    function calculateSellingPrice(uint amount)private view returns (uint sellingPrice){        
+        //Comment from Jeffery to be gas efficient: use parameter to give value back, not separate variable 
+        sellingPrice = address(this).balance - allLosses - LINEAR_BONDING_CURVE_MULTIPLE * (totalSupply() - amount) * (totalSupply() - amount) / 2 ;
     }
 
     function sqrt(uint x) private pure returns (uint y) {
