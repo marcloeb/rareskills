@@ -1,6 +1,6 @@
 # Rareskills https://www.rareskills.io
 
-These are my solutions to the assignments at Rareskills. This bootcamp has the value proposition "Get personal coaching for four months from blockchain industry experts, then get recruited to top web3 companies". I applied, because it is one of the few bootcamps out there. I passed the coding test and Jeffrey Scholz and his team convinced me with their knowldege and industry expertise - so I joined the October cohort 2022. I am glad to be part of the team. 
+These are my solutions to the assignments at Rareskills. This bootcamp has the value proposition "Get personal coaching for four months from blockchain industry experts, then get recruited to top web3 companies". I applied, because it is one of the few bootcamps out there. I passed the coding test and Jeffrey Scholz and his team convinced me with their knowldege and industry expertise - so I joined the October cohort 2022. I am happy to be part of the bootcamp. 
 
 
 --- Week one: ERC 20 ---
