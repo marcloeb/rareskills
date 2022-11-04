@@ -1,0 +1,9 @@
+Your Question:
+safeTransferFrom and transferFrom. What are the differences between these two functions? Create a markdown file describing their differences
+
+Definition from the openzeppelin/contracts/token/ERC721/IERC721Receiver.sol source file:
+Interface for any contract that wants to support safeTransfers from ERC721 asset contracts.
+
+My answer:
+safeTransferFrom checks if the receiver implements the IERC721Receiver interface. If yes, the transfer happens, if no, the transfer does not happen. This check is only for contracts.
+transferFrom does not make this check, so a contract without an implementation of the IERC721Receiver interface can receive a nft.
