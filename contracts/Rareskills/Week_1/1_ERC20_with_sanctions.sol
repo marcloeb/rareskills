@@ -58,5 +58,12 @@ contract ERC20withSanction is ERC20, Ownable {
         require (amount > address(this).balance, "Not enough ether on the contract to make this payout.");
         payable(owner()).transfer(amount);
     }
-    
+
+    function transferOwnership(address ) public pure override  {
+        require(false,"transfer ownership is not allowed");
+    }
+
+    function renounceOwnership() public pure override  {
+        require(false,"renounce ownership is not allowed");
+    }
 }
