@@ -1,0 +1,49 @@
+Understand the ERC721 protocol completely
+● Did work with OpenZeppelin
+
+Put an NFT collection on OpenSea and understand the idiosyncrasies of integrating with OpenSea
+● Did work with Polygon and Görli. Biggest issue was time needed to see file on IPFS and connecting my 
+  Metamask wallet with OpenSea to see the minted NFTs
+
+Understand IPFS and why NFTs use them
+● Watched the vids, not went into details
+
+ Verifying smart contracts on Ethers-can
+● Done on Görli and Mumbai Polygon
+
+nonsequential ids
+● NFTs have no sequencial ids, understood.
+
+staking
+Task 2 was all about this, I think I understood.
+
+stopping smart contracts from minting
+● _beforeTokenTransfer add a require statment
+
+● provenance hashes
+With the provenance hash, NFT projects can prove to the community 
+that the NFT images and metadata were pre-determined beforehand, 
+without having to expose their metadata before launch!
+https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473
+https://boredapeyachtclub.com/#/provenance
+
+
+Not clear:
+
+Royalties -> When trades take place, eg 5% goes to the creator AAM do not support it
+● What do we need the openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol?
+
+OpenSea Gas Free Exchange
+https://support.opensea.io/hc/en-us/articles/1500006315941-What-are-gas-fees-
+--> some actions need gas
+
+metadata leaks
+● when do they happen???? I assume this happens when collector see what
+is minted through metadata and adapt their buying behavior 
+-> therefore provenance hashes.
+
+● ERC721A on https://www.erc721a.org with gas optimization up to 50%
+not used but checked. Can we use it instead of OpenZeppelin?
+
+burning tokens
+● problems with the provenance hashes?
