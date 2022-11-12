@@ -1,0 +1,69 @@
+TRUE POSITIVES:
+*************************
+
+ERC20withSanction.sellTokens(uint256) (contracts/1_ERC20_with_sanctions.sol#50-54) sends eth to arbitrary user
+        Dangerous calls:
+        - address(msg.sender).transfer(amount) (contracts/1_ERC20_with_sanctions.sol#53)
+ERC20TokenSell.sellTokens(uint256) (contracts/2_ERC20_token_sell.sol#29-36) sends eth to arbitrary user
+        Dangerous calls:
+        - address(msg.sender).transfer(etherToSendBack) (contracts/2_ERC20_token_sell.sol#35)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+--> This is an error the tool found for me: Everybody can gett the tokens out (use Modifier)
+FIX1: require(balanceOf(msg.sender) >= amount, "not enough tokens");
+FIX2: burning was not applied -> _burn(msg.sender, amount);
+
+Contract locking ether found:
+        Contract Value (contracts/4_SendValue.sol#4-18) has payable functions:
+         - Value.addValue() (contracts/4_SendValue.sol#11-13)
+        But does not have a function to withdraw the ether
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#contracts-that-lock-ether
+--> This is true: That contract was for testing purposes only I added a withdrawel functions
+--> I do not make any changes, because it was testing only.
+
+ERC20withSanction._beforeTokenTransfer(address,address,uint256) (contracts/1_ERC20_with_sanctions.sol#29-43) compares to a boolean constant:
+        -require(bool,string)(banned[to] == false,user banned, no receive tokens) (contracts/1_ERC20_with_sanctions.sol#39)
+ERC20withSanction._beforeTokenTransfer(address,address,uint256) (contracts/1_ERC20_with_sanctions.sol#29-43) compares to a boolean constant:
+        -require(bool,string)(banned[from] == false,user banned, no send tokens) (contracts/1_ERC20_with_sanctions.sol#38)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#boolean-equality
+--> That is true: I was not aware of the pattern you should not compare booleans to true or false
+
+
+
+FALSE POSITIVES:
+*************************
+
+Different versions of Solidity are used:
+        - Version used: ['0.8.17', '^0.8.0', '^0.8.9']
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)
+        - 0.8.17 (contracts/1_ERC20_with_sanctions.sol#2)
+        - 0.8.17 (contracts/2_ERC20_token_sell.sol#2)
+        - 0.8.17 (contracts/3_ERC20_sale_buyback.sol#2)
+        - 0.8.17 (contracts/4_SendValue.sol#2)
+        - ^0.8.9 (contracts/Lock.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+--> Recommondation says: "Use one Solidity version." How to deal with openzeppelin?
+
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4) allows old versions
+Pragma version0.8.17 (contracts/1_ERC20_with_sanctions.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/2_ERC20_token_sell.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/3_ERC20_sale_buyback.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/4_SendValue.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version^0.8.9 (contracts/Lock.sol#2) allows old versions
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+--> Deploy with any of the following Solidity versions:
+
+0.5.16 - 0.5.17
+0.6.11 - 0.6.12
+0.7.5 - 0.7.6
+0.8.16
+
+--> Does this mean I should rely on 0.8.16, always one solc version back from the current?

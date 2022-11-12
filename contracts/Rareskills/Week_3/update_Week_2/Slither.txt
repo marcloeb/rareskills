@@ -1,0 +1,170 @@
+TRUE POSITIVES:
+*************************
+
+PrimeCatsNFT.withdraw() (contracts/1a_ERC721_free_nft.sol#23-25) sends eth to arbitrary user
+        Dangerous calls:
+        - address(owner).transfer(address(this).balance) (contracts/1a_ERC721_free_nft.sol#24)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+--> It is correct, I added a owner check, but modifiers are not accepted.
+
+RewardToken.constructor(address)._minter (contracts/2a_ERC20_reward.sol#10) lacks a zero-check on :
+                - minter = _minter (contracts/2a_ERC20_reward.sol#11)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+Recommondation: check that in admin or other roles no asssignment of 0 is possible.
+--> this is true, fixed.
+
+Vault.widthdrawTokens() (contracts/2c_Vault.sol#78-102) compares to a boolean constant:
+        -partialPayment == true (contracts/2c_Vault.sol#91)
+Second.ownedNFTsFilterPrimeNumber(address) (contracts/3_ERC721_nft_enumerable.sol#42-62) compares to a boolean constant:
+        -isPrime(tokenId) == true (contracts/3_ERC721_nft_enumerable.sol#56)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#boolean-equality
+--> true, I move away from comparing, fixed
+
+
+NftEnumerable.game (contracts/3_ERC721_nft_enumerable.sol#7) should be constant
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+--> true, it was a variable not used.
+
+
+
+FALSE POSITIVES:
+*************************
+
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse = (3 * denominator) ^ 2 (node_modules/@openzeppelin/contracts/utils/math/Math.sol#117)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#121)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#122)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#123)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#124)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#125)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - denominator = denominator / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#102)
+        - inverse *= 2 - denominator * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#126)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) performs a multiplication on the result of a division:
+        - prod0 = prod0 / twos (node_modules/@openzeppelin/contracts/utils/math/Math.sol#105)
+        - result = prod0 * inverse (node_modules/@openzeppelin/contracts/utils/math/Math.sol#132)
+--> OpenZeppelin values, from Contract, False Positive for me
+
+Vault.widthdrawTokens() (contracts/2c_Vault.sol#78-102) performs a multiplication on the result of a division:
+        - timeRounded = (rewardTime / DAY_IN_SECONDS) * DAY_IN_SECONDS (contracts/2c_Vault.sol#87)
+Vault.earnedTime() (contracts/2c_Vault.sol#108-119) performs a multiplication on the result of a division:
+        - ((rewardTime / DAY_IN_SECONDS) * DAY_IN_SECONDS) (contracts/2c_Vault.sol#117)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+Recommondation: Consider ordering multiplication before division.
+--> False Positive: This is done on purpose for rounding, should I use another method?
+
+
+Vault.calculateTotalReward().i (contracts/2c_Vault.sol#124) is a local variable never initialized
+PrimeCatsNFT.constructor().i (contracts/1a_ERC721_free_nft.sol#14) is a local variable never initialized
+Second.ownedNFTsFilterPrimeNumber(address).i (contracts/3_ERC721_nft_enumerable.sol#48) is a local variable never initialized
+Second.ownedNFTsFilterPrimeNumber(address).primeCount (contracts/3_ERC721_nft_enumerable.sol#44) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+--> false positive: I thought it is good practice not to initalize any variables to save gas. Addresses seem to be dangerous though (send to 0x0 address)
+
+
+ERC721._checkOnERC721Received(address,address,uint256,bytes) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#429-451) ignores return value by IERC721Receiver(to).onERC721Received(_msgSender(),from,tokenId,data) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#436-447)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+Recommondation: Ensure that all the return values of the function calls are used.
+--> false positive: thats an error message from openzeppelin...
+
+Second.ownedNFTsFilterPrimeNumber(address) (contracts/3_ERC721_nft_enumerable.sol#42-62) has external calls inside a loop: tokenId = nft.tokenOfOwnerByIndex(adr,i) (contracts/3_ERC721_nft_enumerable.sol#50)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+int256 tokenId = nft.tokenOfOwnerByIndex(msg.sender, i);
+-->openzeppelin false positive
+
+
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).retval (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#436)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#429-451) potentially used before declaration: retval == IERC721Receiver.onERC721Received.selector (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#437)
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).reason (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#438)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#429-451) potentially used before declaration: reason.length == 0 (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#439)
+Variable 'ERC721._checkOnERC721Received(address,address,uint256,bytes).reason (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#438)' in ERC721._checkOnERC721Received(address,address,uint256,bytes) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#429-451) potentially used before declaration: revert(uint256,uint256)(32 + reason,mload(uint256)(reason)) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#444)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#pre-declaration-usage-of-local-variables
+-->open zeppelin, false positive
+
+ERC721._checkOnERC721Received(address,address,uint256,bytes) (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#429-451) uses assembly
+        - INLINE ASM (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#443-445)
+Address._revert(bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#231-243) uses assembly
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/Address.sol#236-239)
+Strings.toString(uint256) (node_modules/@openzeppelin/contracts/utils/Strings.sol#18-38) uses assembly
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/Strings.sol#24-26)
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/Strings.sol#30-32)
+Math.mulDiv(uint256,uint256,uint256) (node_modules/@openzeppelin/contracts/utils/math/Math.sol#55-135) uses assembly
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/math/Math.sol#66-70)
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/math/Math.sol#86-93)
+        - INLINE ASM (node_modules/@openzeppelin/contracts/utils/math/Math.sol#100-109)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+-->open zeppelin, false positive
+
+Different versions of Solidity are used:
+        - Version used: ['0.8.17', '^0.8.0', '^0.8.1', '^0.8.9']
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol#4)
+        - ^0.8.1 (node_modules/@openzeppelin/contracts/utils/Address.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/Strings.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol#4)
+        - ^0.8.0 (node_modules/@openzeppelin/contracts/utils/math/Math.sol#4)
+        - 0.8.17 (contracts/1_ERC20_with_sanctions.sol#2)
+        - 0.8.17 (contracts/1a_ERC721_free_nft.sol#2)
+        - 0.8.17 (contracts/2a_ERC20_reward.sol#2)
+        - 0.8.17 (contracts/2b_ERC721_nft.sol#2)
+        - 0.8.17 (contracts/2c_Vault.sol#2)
+        - 0.8.17 (contracts/3_ERC721_nft_enumerable.sol#2)
+        - ^0.8.9 (contracts/Lock.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol#4) allows old versions
+Pragma version^0.8.1 (node_modules/@openzeppelin/contracts/utils/Address.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/Strings.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol#4) allows old versions
+Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/math/Math.sol#4) allows old versions
+Pragma version0.8.17 (contracts/1_ERC20_with_sanctions.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/1a_ERC721_free_nft.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/2a_ERC20_reward.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/2b_ERC721_nft.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/2c_Vault.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version0.8.17 (contracts/3_ERC721_nft_enumerable.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.16
+Pragma version^0.8.9 (contracts/Lock.sol#2) allows old versions
+solc-0.8.17 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+-->same question, is it necessary to switch to a certain solitity version below current? and what is with different contract versions from openzeppelin
+
+Low level call in Address.sendValue(address,uint256) (node_modules/@openzeppelin/contracts/utils/Address.sol#60-65):
+        - (success) = recipient.call{value: amount}() (node_modules/@openzeppelin/contracts/utils/Address.sol#63)
+Low level call in Address.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#128-137):
+        - (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#135)
+Low level call in Address.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#155-162):
+        - (success,returndata) = target.staticcall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#160)
+Low level call in Address.functionDelegateCall(address,bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#180-187):
+        - (success,returndata) = target.delegatecall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#185)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+-->false positive open zeppelin
