@@ -147,6 +147,11 @@ Mutation:
     Mutated line:
                  }
 
+
+************
+-> taking _mint away, is this necessary condition to test for that there are no tokens minted?
+************
+
 Mutation:
     File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
     Line nr: 53
@@ -316,6 +321,10 @@ Mutation:
 
     Mutated line:
              address(this).balance -
+
+************
+-> taking  sellingPrice = away, this would screw up the calculated selling price, I need to test for this?
+************
 
 Mutation:
     File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol

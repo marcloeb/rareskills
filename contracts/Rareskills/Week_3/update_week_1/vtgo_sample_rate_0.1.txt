@@ -1,6 +1,11 @@
+vertigo run --hardhat-parallel 8 --sample-ratio 0.1 --output vtgo.txt
 Mutation testing report:
 Number of mutations:    6
 Killed:                 1 / 6
+
+******************************
+what to do with these results?
+******************************
 
 Mutations:
 Mutation:
