@@ -176,6 +176,25 @@ describe('ERC20with Sanctions', function () {
       });
     });
 
+    describe('Only Owner is allowed to access contract balance and send eth to owner', function () {
+      it('unauthorized user accesses contract balance', async function () {
+        const { erc20, otherAccount } = await loadFixture(getContract);
+        await expect(erc20.connect(otherAccount).getContractBalance()).to.revertedWith(
+          'Ownable: caller is not the owner'
+        );
+      });
+      it('unauthorized user accesses sendEtherToOwner', async function () {
+        const { erc20, otherAccount } = await loadFixture(getContract);
+        await expect(erc20.connect(otherAccount).sendEtherToOwner(10000000)).to.revertedWith(
+          'Ownable: caller is not the owner'
+        );
+      });
+      it('Unauthorized to send eth to owner if asked amout is greater than the contract balance', async function () {
+        const { erc20, owner } = await loadFixture(getContract);
+        await expect(erc20.connect(owner).sendEtherToOwner(10000000)).to.revertedWith('Not enough ether for payout');
+      });
+    });
+
     describe('transfer and renaunce Ownership not possible', function () {
       it('check the transfer', async function () {
         const { erc20, owner } = await loadFixture(getContract);

@@ -1,0 +1,330 @@
+Run `npm audit` for details.
+marcloeb@MacBook-Pro-5 rsweek1Vertigo % vertigo run --hardhat-parallel 8
+[*] Starting mutation testing
+[*] Starting analysis on project
+[*] Initializing campaign run 
+[*] Checking validity of project
+[+] The project is valid
+[*] Storing compilation results
+[*] Running analysis on 239 mutants
+100%|██████████████████████████████████████████████████████████████████████████████████| 239/239 [22:04<00:00,  5.54s/mutant]
+[*] Done with campaign run
+[+] Report:
+Mutation testing report:
+Number of mutations:    239
+Killed:                 2 / 239
+
+Mutations:
+
+[+] Survivors
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/2_ERC20_token_sell.sol
+    Line nr: 25
+    Result: Lived
+    Original line:
+                 avaiableTokensToSell -= neededTokens;
+
+    Mutated line:
+          neededTokens;
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/1_ERC20_with_sanctions.sol
+    Line nr: 41
+    Result: Lived
+    Original line:
+                 //max minting of 100 Mio
+
+    Mutated line:
+                 //max minti / of 100 Mio
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/1_ERC20_with_sanctions.sol
+    Line nr: 11
+    Result: Lived
+    Original line:
+             uint internal constant MAX_SUPPLY = 100_000_000 * 10**18; //18 decimals allowed for 100 Mio. tokens ?? this means all transfers happen with lowest level, to transfer one token, an amount of 10**18 needs to be transfered.
+
+    Mutated line:
+             uint internal constant MAX_SUPPLY = 100_000_000 * 10**18; //18 decimals allowed for 100 Mio. tokens ?? thith lowest level, to transfer one token, an amount of 10**18 needs to be transfered.
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/1_ERC20_with_sanctions.sol
+    Line nr: 11
+    Result: Lived
+    Original line:
+             uint internal constant MAX_SUPPLY = 100_000_000 * 10**18; //18 decimals allowed for 100 Mio. tokens ?? this means all transfers happen with lowest level, to transfer one token, an amount of 10**18 needs to be transfered.
+
+    Mutated line:
+             uint internal constant MAX_SUPPLY = 100_000_000 * 10**18; //18 decimals allowed for 100 Mio. tokens ?? this means all transfers happen with lowest level, to transfer one token, an amount o.
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/1_ERC20_with_sanctions.sol
+    Line nr: 56
+    Result: Lived
+    Original line:
+             //this function is quite common, as well a function to get out ether to the owner.
+
+    Mutated line:
+             //this function is quite common, as well a funcner.
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 63
+    Result: Lived
+    Original line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+    Mutated line:
+            <  poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 63
+    Result: Lived
+    Original line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+    Mutated line:
+            >  poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 27
+    Result: Lived
+    Original line:
+                 //given price, searched amount
+
+    Mutated line:
+                 //given price, sea / ed amount
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 62
+    Result: Lived
+    Original line:
+              * area = m * 1/2 * x ^ 2 <- total price of all tokens
+
+    Mutated line:
+              * area = m * 1/2 * x ^ 2 <- total price of all - kens
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 78
+    Result: Lived
+    Original line:
+              * calculetes amount of Ether to pay back
+
+    Mutated line:
+              * calculetes a * nt of Ether to pay back
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 79
+    Result: Lived
+    Original line:
+              * Total price for totalSupply (tokens)  => m * 1/2 * x ^ 2
+
+    Mutated line:
+              * Total price for totalSupply (tokens)  => m * 1/2 * x  -=      * where x is the new totalSupply of tokens ./. the selling amount of tokens
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 80
+    Result: Lived
+    Original line:
+              * where x is the new totalSupply of tokens ./. the selling amount of tokens
+
+    Mutated line:
+              * where x is the new totalSupply of tokens ./. the selling amo -= of tokens
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 39
+    Result: Lived
+    Original line:
+                 _mint(msg.sender, tokens);
+
+    Mutated line:
+                 }
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 53
+    Result: Lived
+    Original line:
+                 //burn coins
+
+    Mutated line:
+                 //burn coiount);
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 60
+    Result: Lived
+    Original line:
+              * calculetes amount of tokens to mint for give Eth amount
+
+    Mutated line:
+              * calculetes amount of tokens to mint for giv)/2 <-- x=Y therefore x ^ 2, but even when y!=x, y can be defined as x*m, making next line
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 61
+    Result: Lived
+    Original line:
+              * area = (x*y)/2 <-- x=Y therefore x ^ 2, but even when y!=x, y can be defined as x*m, making next line
+
+    Mutated line:
+              * area = (x*y)/2 <-- x=Y thereforean be defined as x*m, making next line
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 61
+    Result: Lived
+    Original line:
+              * area = (x*y)/2 <-- x=Y therefore x ^ 2, but even when y!=x, y can be defined as x*m, making next line
+
+    Mutated line:
+              * area = (x*y)/2 <-- x=Y therefore x ^ 2, but even when y!=x, y can be defined as x* = m * 1/2 * x ^ 2 <- total price of all tokens
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 63
+    Result: Lived
+    Original line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+    Mutated line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ +her) = f(supply +new tokens), linear bonding curve
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 63
+    Result: Lived
+    Original line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linear bonding curve
+
+    Mutated line:
+              * poolBalance + msg.value = m * 1/2 * (totalSupply_ + newTokens) ^ 2 <-- reserve (ether) = f(supply +new tokens), linearnce + msg.value)*2/m = (totalSupply_ + newTokens) ^ 2
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 64
+    Result: Lived
+    Original line:
+              * (poolBalance + msg.value)*2/m = (totalSupply_ + newTokens) ^ 2
+
+    Mutated line:
+              * (poolBalance + msg.value)*2/m 2
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 69
+    Result: Lived
+    Original line:
+                 //value sent is included in contract balance -> no need to add
+
+    Mutated line:
+                 //valueact balance -> no need to add
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 70
+    Result: Lived
+    Original line:
+                 //all losses need to be substracted from pool balance.
+
+    Mutated line:
+                 //all losses need to be substracteImportant 2nd
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 72
+    Result: Lived
+    Original line:
+                 //do always multiply FRIST!
+
+    Mutated line:
+             
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 73
+    Result: Lived
+    Original line:
+                 //Comment from Jeffery to be gas efficient: use parameter to give value back, not separate variable
+
+    Mutated line:
+                 //Comment fr use parameter to give value back, not separate variable
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 78
+    Result: Lived
+    Original line:
+              * calculetes amount of Ether to pay back
+
+    Mutated line:
+              * calculetes amount of Ether tor totalSupply (tokens)  => m * 1/2 * x ^ 2
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 80
+    Result: Lived
+    Original line:
+              * where x is the new totalSupply of tokens ./. the selling amount of tokens
+
+    Mutated line:
+              * of tokens ./. the selling amount of tokens
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 81
+    Result: Lived
+    Original line:
+              * poolvalue in Ether on contract ./. the calculated value is what we give back
+
+    Mutated line:
+              * poolthe calculated value is what we give back
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 84
+    Result: Lived
+    Original line:
+                 //Comment from Jeffery to be gas efficient: use parameter to give value back, not separate variable
+
+    Mutated line:
+                 //Comment from Jeffery to bto give value back, not separate variable
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 84
+    Result: Lived
+    Original line:
+                 //Comment from Jeffery to be gas efficient: use parameter to give value back, not separate variable
+
+    Mutated line:
+                 //Comment from Jeffery to be gas efficient: use parameter to give value back      sellingPrice =
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 85
+    Result: Lived
+    Original line:
+                 sellingPrice =
+
+    Mutated line:
+             address(this).balance -
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 37
+    Result: Lived
+    Original line:
+                 //mint
+
+    Mutated line:
+                 //mint      _mint(msg.sender, tokens);
+
+[*] Done! 

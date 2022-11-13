@@ -1,0 +1,71 @@
+Mutation testing report:
+Number of mutations:    6
+Killed:                 1 / 6
+
+Mutations:
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/2_ERC20_token_sell.sol
+    Line nr: 31
+    Result: Lived
+    Original line:
+                 uint etherToSendBack = amount / CONVERSION_RATE;
+
+    Mutated line:
+                 uint etherToSendBack = amount * CONVERSION_RATE;
+
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/1_ERC20_with_sanctions.sol
+    Line nr: 50
+    Result: Lived
+    Original line:
+                 _burn(msg.sender, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/2_ERC20_token_sell.sol
+    Line nr: 24
+    Result: Lived
+    Original line:
+                 _mint(msg.sender, neededTokens);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 74
+    Result: Killed
+    Original line:
+                 tokenAmount = sqrt(((address(this).balance - allLosses) * 2) / LINEAR_BONDING_CURVE_MULTIPLE) - totalSupply();
+
+    Mutated line:
+                 tokenAmount = sqrt(((address(this).balance - allLosses) * 2) / LINEAR_BONDING_CURVE_MULTIPLE) + totalSupply();
+
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 95
+    Result: Timeout
+    Original line:
+                 while (z < y) {
+
+    Mutated line:
+                 while (z <= y) {
+
+
+Mutation:
+    File: /Users/marcloeb/hardhat/rsWeek1Vertigo/contracts/3_ERC20_sale_buyback.sol
+    Line nr: 88
+    Result: Lived
+    Original line:
+                     (LINEAR_BONDING_CURVE_MULTIPLE * (totalSupply() - amount) * (totalSupply() - amount)) /
+
+    Mutated line:
+                     (LINEAR_BONDING_CURVE_MULTIPLE * (totalSupply() - amount) * (totalSupply() - amount)) * 2;
+
+
