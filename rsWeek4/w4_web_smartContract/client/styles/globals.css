@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+body {
+  background-color: black;
+}

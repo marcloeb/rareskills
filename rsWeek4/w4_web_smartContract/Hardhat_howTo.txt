@@ -1,0 +1,28 @@
+Installation Instruction per new project
+******************************************
+
+CREATE new Directory
+1. npm install --save-dev hardhat
+2. npx hardhat or hh
+3. Use js sample project with hardhat toolbox (contains: ethers, etherscan, gas-reporter, solidity-coverage, type chain/hardhat)
+4. npm install --save-dev @nomiclabs/hardhat-solhint
+5. npm install @openzeppelin/contracts
+6. Open Folder in VS, add .prettierrc.json, .solhint.json and secrets.json, adapt hardhat.config.js
+7. Slither should be installed globally (pip3 install slither-analyzer)
+
+
+VS Code Plugins to use:
+1. ESLint
+2. Prettier - Code Formatter (is ESLint necessary if Prettier is there?)
+3. Solidity (Hardhat Nomic Foundation Plugin)
+4. Optional (Image preview and Todo Higlight)
+
+
+Run on every contract to check correctness
+********************************************
+Eslint and prettier get executed with every save, we have config files defined for prettier
+
+solhint 'contracts/**/*.sol'
+slither . 
+vertigo run --hardhat-parallel 8 --sample-ratio 0.1
+https://github.com/JoranHonig/vertigo

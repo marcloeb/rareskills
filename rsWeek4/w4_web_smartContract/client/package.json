@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@enzoferey/ethers-error-parser": "^0.2.2",
+    "@headlessui/react": "^1.7.2",
+    "@headlessui/tailwindcss": "^0.1.1",
+    "clsx": "^1.2.1",
+    "ethers": "^5.7.1",
+    "install": "^0.13.0",
+    "next": "latest",
+    "npm": "^8.19.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
+  }
+}
