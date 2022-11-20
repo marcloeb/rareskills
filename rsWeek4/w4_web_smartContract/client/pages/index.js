@@ -40,8 +40,8 @@ export default function Home() {
         .then(async (result) => {
           console.log("account: ", result);
           console.log("chainid: ", window.ethereum.chainId);
-          if (window.ethereum.chainId === "0x7a69") {
-            //0x89=Polygon Main, 3=Hardhat Node, 0x13881= Polygon Mumbay
+          if (window.ethereum.chainId === "0x13881") {
+            //0x89=Polygon Main, 0x7a69=Hardhat Node, 0x13881= Polygon Mumbay
             accountChangedHandler(result[0]);
           } else {
             setDefaultAccount(null);
@@ -102,7 +102,7 @@ export default function Home() {
       if (window.ethereum._events["chainChanged"] == undefined) {
         window.ethereum.on("chainChanged", (chain) => {
           console.log("Chain changed: " + chain);
-          if (window.ethereum.chainId === "0x7a69") {
+          if (window.ethereum.chainId === "0x13881") {
             //0x89=Polygon Main, 0x7a69=Hardhat Node, 0x13881= Polygon Mumbay
             connectWallet();
           } else {
