@@ -165,15 +165,15 @@ export default function Home() {
 
   const handleErrorMintForge = async (error, tokenNumber) => {
     const parsedEthersError = getParsedEthersError(error);
+    if (parsedEthersError.context == "Cooldown: One minute between calls") {
+      alert("cooldown, please wait one minute.");
+      console.error(parsedEthersError);
+    }
+    if (parsedEthersError.context == "Required Tokens not minted") {
+      alert("Cannot forge new token. Required tokens are not minted yet, please mint these first.");
+      console.error(parsedEthersError);
+    }
     if (parsedEthersError.errorCode == "UNKNOWN_ERROR") {
-      if (error.error.data.data.message.includes("Cooldown: One minute between calls")) {
-        alert("cooldown, please wait one minute.");
-      }
-      if (error.error.data.data.message.includes("Required Tokens not minted")) {
-        alert("Cannot forge new token. Required tokens are not minted yet, please mint these first.");
-      }
-      console.error(error);
-    } else {
       console.error("Errorcode: " + parsedEthersError.errorCode + ". Errordescription: " + parsedEthersError.context);
     }
     myUseRef.current[tokenNumber].togglePending(false);
