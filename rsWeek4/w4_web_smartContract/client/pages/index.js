@@ -44,12 +44,30 @@ export default function Home() {
             //0x89=Polygon Main, 0x7a69=Hardhat Node, 0x13881= Polygon Mumbay
             accountChangedHandler(result[0]);
           } else {
-            setDefaultAccount(null);
-            modal.current.setTitleAndDescAction(
-              "Wrong Network:",
-              "This app only works with Polygon Mumbai. Please select on the MetaMask Plugin the Mumbai Network."
-            );
-            modal.current.reopenModal();
+            window.ethereum
+              .request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: "0x13881",
+                    rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
+                    chainName: "Matic Mumbai",
+                    nativeCurrency: {
+                      name: "MATIC",
+                      symbol: "MATIC",
+                      decimals: 18,
+                    },
+                    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+                  },
+                ],
+              })
+              .catch((error) => {
+                if (error.code === 4001) {
+                  console.log("Please connect to MetaMask.");
+                } else {
+                  console.error(error);
+                }
+              });
           }
         })
         .catch((error) => {
@@ -57,12 +75,17 @@ export default function Home() {
             console.log("Please connect to MetaMask.");
           } else {
             console.error(error);
+            setDefaultAccount(null);
+            modal.current.setTitleAndDescAction(
+              "Wrong Network:",
+              "This app only works with Polygon Mumbai. Please select on the MetaMask Plugin the Mumbai Network."
+            );
+            modal.current.reopenModal();
           }
         });
     } else {
       setIsMetaMaskInstalled(false);
       console.log("Need to install MetaMask");
-      // setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
 
