@@ -1,4 +1,6 @@
-# Ethernaut 17: Recovery - understanding Interfaces
+# Ethernaut 17: Recovery - understanding generating addresses
+
+Addresses of generated smart contracts can be predicted.
 
 ## The Task Intro
 
