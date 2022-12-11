@@ -1,4 +1,4 @@
-# hEthernaut 03: Coin Flip - Insecure Randomness
+# Ethernaut 03: Coin Flip - Insecure Randomness
 
 Learn about random numbers in Solidity
 
