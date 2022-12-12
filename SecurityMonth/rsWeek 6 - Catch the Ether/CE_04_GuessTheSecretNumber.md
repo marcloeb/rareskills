@@ -2,6 +2,8 @@
 
 Random numbers cannot be created inside solidity, oracles are suggested
 
+(The file names of GuessTheSEcretNumber.md and GuessTheNewNumbers.md are false, the titles in the file are correct)
+
 ## The Task Intro
 
 The number is now generated on-demand when a guess is made.
