@@ -1,6 +1,6 @@
 # Catch the Ether 2: Guess the SECRET number
 
-This is a series of Lottery Challenges showing flaws of guessing a random numbers, as well Token challenges in the last 3 challenges
+Learn about Hashing.
 
 ## The Task Intro
 
