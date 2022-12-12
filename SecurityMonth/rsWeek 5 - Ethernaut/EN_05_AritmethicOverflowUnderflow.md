@@ -40,10 +40,4 @@ contract Token {
 
 ## The Solution
 
-The Transfer function require statemment evaluates to a uint, therefore we can let the require statement underflow with a value of:
-
-```apache
-uint256 public underflow = 2 ** 256 - 1 -20;
-```
-
-With this I gain a very large amount of tokens.
+The Transfer function require statemment evaluates to a uint (not clear why), therefore we can let the require statement underflow with a value of 21. With this I gain a very large amount of tokens.
