@@ -117,5 +117,3 @@ for (let i = 0; i < 10; i++) {
    await this.pool.connect(attacker).flashLoan(this.receiver.address, 10);
 }
 ```
-
-Sending a
