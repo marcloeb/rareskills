@@ -28,7 +28,7 @@ Help used: https://www.evm.codes
 1A      00          STOP
 ```
 
-The tenth Puzzle introduces some mathematics which makes the calculation more difficult. Input requested are the ether value and the calldata. I solve this puzzle by abstracting it:
+The tenth Puzzle introduces some mathematics which makes the calculation more difficult. Input requested are the wei value and the calldata. I solve this puzzle by abstracting it:
 
 - Calldatasize > callvalue
 - Calldatasize mod 3 is 0

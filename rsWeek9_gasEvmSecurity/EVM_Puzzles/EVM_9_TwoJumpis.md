@@ -15,7 +15,7 @@ Help used: https://www.evm.codes, https://www.evm.codes/playground?callValue=0&u
 0B      36        CALLDATASIZE
 0C      02        MUL           -> multiply calldatasize with callvalue
 0D      6008      PUSH1 08
-0F      14        EQ            -> this should be equal to 08: eg 4 bytes * 2 ether
+0F      14        EQ            -> this should be equal to 08: eg 4 bytes * 2 wei
 10      6014      PUSH1 14
 12      57        JUMPI
 13      FD        REVERT

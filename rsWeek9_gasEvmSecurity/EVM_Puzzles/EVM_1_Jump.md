@@ -15,6 +15,6 @@ Help used: https://www.evm.codes
 09      00      STOP
 ```
 
-The first Puzzle reads the callvalue = msg.value and uses this value to jump to a valid jump destitnation. In our case we need to send 8 ether.
+The first Puzzle reads the callvalue = msg.value and uses this value to jump to a valid jump destitnation. In our case we need to send 8 wei.
 
 Puzzle solved, that was easy - I feel pushed to be motivated! But thats okay 😄.
