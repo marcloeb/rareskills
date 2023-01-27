@@ -29,16 +29,17 @@ Here is the tricky part: how to form the calldata that it generates a smart cont
 Here I needed to research. The solution I found pushes one to the stack and stores this value into memory slot 0. Then it gives back the return value of 1 byte back at the position 1F.
 
 0x60016000526001601ff3
-60 - push1
-01 - value 01
-60 - push1
-00 - value 00
-52 - mstore
-60 - push1
-01 - value 01
-60 - push1
-1f - value 1f
-f3 - return
+
+- 60 - push1
+- 01 - value 01
+- 60 - push1
+- 00 - value 00
+- 52 - mstore
+- 60 - push1
+- 01 - value 01
+- 60 - push1
+- 1f - value 1f
+- f3 - return
 
 This calldata stores the value 01 to memory storage slot 0 and returns 1 byte back from offset 1f.
 
