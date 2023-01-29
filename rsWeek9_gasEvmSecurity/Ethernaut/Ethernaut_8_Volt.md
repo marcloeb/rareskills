@@ -1,4 +1,4 @@
-# EVM_Puzzles 12: Volt
+# Ehternaut 12: Volt
 
 Understanding solidity storage
 

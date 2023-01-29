@@ -1,4 +1,4 @@
-# EVM_Puzzles 12: Privacy
+# Ehternaut 12: Privacy
 
 Understanding solidity storage
 

@@ -1,4 +1,4 @@
-# EVM_Puzzles 13: Gatekeeper One
+# Ehternaut 13: Gatekeeper One
 
 passing gas to a smart contract
 

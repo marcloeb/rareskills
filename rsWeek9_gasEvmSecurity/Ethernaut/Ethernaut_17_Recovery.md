@@ -1,4 +1,4 @@
-# EVM_Puzzles 17: Recovery - understanding generating addresses
+# Ehternaut 17: Recovery - understanding generating addresses
 
 Understanding storage
 

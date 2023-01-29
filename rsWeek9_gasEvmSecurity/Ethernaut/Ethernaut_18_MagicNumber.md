@@ -1,4 +1,4 @@
-# EVM_Puzzles 18: Magic Number
+# Ehternaut 18: Magic Number
 
 assembly
 
