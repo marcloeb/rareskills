@@ -34,6 +34,7 @@ I think this took long because of other work I had to do, so not sure if I am ab
 What motivates me I can continue to specialize with the same learning techniques in additional courses of Rareskills. So finally I will be at a point of specialization I would not have expected - a real web3 expert.
 
 --- Week 9 and 10: Gas optimization and assembly programming ---
+
 [Rareskills.io agenda](https://www.rareskills.io/solidity-bootcamp) for this course states:
 "Learn from the bestselling author of the Udemy courses on gas optimization and assembly programming. It’s not just enough to master Solidity. You must master the environment that it runs in: the Ethereum Virtual Machine. You will learn how the EVM actually conducts the transactions, stores information,and the protocols it uses to receive instructions."
 
@@ -41,6 +42,8 @@ After the winterbreak with almost 3 weeks doing something different I am back wi
 
 I look forward for the next week with more gas optimization and programming tasks.
 
--- Week 11: EVM Hacking exercises (CTF) ---
-That will be fun ;-)
+-- Week 11-12: YUL and Assembly Contracts ---
+This two weeks where the most difficult assignment in the course. I created a 1155 ERC token purely in YUL. This was a hell of a journey, starting with about a week learning and research about the ERC1155 standard, intros into development with Foundry, learning about how values of different types are stored by solidity and how you handle memory and storage yourself in YUL. It was a huge learning experience, I was not sure I was capable of. I made my first experience with GitHub Co-Pilot, that was very valuable and showed the pros and cons of chatbots, helping with repeating code and discovering new code patterns, but as well hallucinating wrong code that introduces bugs that are very hard to track down. All in all such helpful 2 weeks, that I am proud of!!!
+
+-- Week 13: Week 13: Smart Contract Upgrades ---
 **\*** Follows **\***
