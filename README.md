@@ -43,7 +43,9 @@ After the winterbreak with almost 3 weeks doing something different I am back wi
 I look forward for the next week with more gas optimization and programming tasks.
 
 -- Week 11-12: YUL and Assembly Contracts ---
+
 This two weeks where the most difficult assignment in the course. I created a 1155 ERC token purely in YUL. This was a hell of a journey, starting with about a week learning and research about the ERC1155 standard, intros into development with Foundry, learning about how values of different types are stored by solidity and how you handle memory and storage yourself in YUL. It was a huge learning experience, I was not sure I was capable of. I made my first experience with GitHub Co-Pilot, that was very valuable and showed the pros and cons of chatbots, helping with repeating code and discovering new code patterns, but as well hallucinating wrong code that introduces bugs that are very hard to track down. All in all such helpful 2 weeks, that I am proud of!!!
 
 -- Week 13: Week 13: Smart Contract Upgrades ---
+
 **\*** Follows **\***
