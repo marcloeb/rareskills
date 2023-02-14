@@ -1,4 +1,6 @@
-# \*\*\*\*ERC1155 written in YUL, tested with FOUNDRY
+# Smart Contract Development with Foundry: ERC1155 written in YUL
+
+Foundry \*\*\*\* Foundry solidity \*\*\*\* Foundry Smart Code Developement \*\*\*\* Foundry Framework \*\*\*\* Foundry is great \*\*\*\*
 
 Our task of the last 3 weeks were to create a ERC1155 contract purely in YUL and test it with foundry. This was quite a tough exercise, because I was new to YUL programming and as well to foundry. Find below my journey in the last 2 weeks:
 
