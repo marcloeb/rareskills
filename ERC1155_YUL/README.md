@@ -1,4 +1,4 @@
-# ERC1155 written in YUL, tested with FOUNDRY
+# \*\*\*\*ERC1155 written in YUL, tested with FOUNDRY
 
 Our task of the last 3 weeks were to create a ERC1155 contract purely in YUL and test it with foundry. This was quite a tough exercise, because I was new to YUL programming and as well to foundry. Find below my journey in the last 2 weeks:
 
@@ -98,6 +98,4 @@ I created 8 tests for the yul contract:
 
 ## 3. Conclusions
 
-If you made it that far with your reading: Congratulations🎉️🎉️🎉️! Working with YUL is tough. Without a framework like foundry it takes a very long time be productive. This work had a huge learning experience. From ERC1155 to foundry to Upcode to YUL to Encoding dynamic arrays and string in calldata and memory. At the end of this article, remember solidity does encoding of values always in 32 bytes. For mappings it is a keccac256 on the two keys. For dynamic arrays and dynamic strings it follow the pattern offset, lenght, values.
-
-Best of all, the project works with hardhat as well. And, and and.
+🎉️🎉️🎉️! Working with YUL is tough, this was my hardest assigment in the reareskills bootcamp so far. Without a framework like foundry I would not be able to finish this task in 2 weeks. This work had a huge learning experience. From ERC1155 to foundry to Upcode to YUL to Encoding dynamic arrays and string in calldata and memory. At the end of this article, remember solidity does encoding of values always in 32 bytes. For mappings it is a keccac256 on the two keys. For dynamic arrays and dynamic strings it follow the pattern offset, lenght, values. Best of all, the project works with hardhat as well. If you are reading this while you work on this assignment: Dont give up, after doing this exercise and reading all the code you understand Solidity, YUL and the EVM much better than before!
