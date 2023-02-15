@@ -96,6 +96,4 @@ So I can call a first time setSecondTime and pass an address of the attacker con
 
 There where 2 difficulties - first msg.sender seems not to work and I needed to fall back to tx.origin. And the second difficulty was that I ran out of gas, but did not see this message in remix... But that cost me about 30 min, so its ok...
 
-```Done 🎉️.
-
-```
+Done 🎉️.
