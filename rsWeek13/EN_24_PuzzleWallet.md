@@ -109,10 +109,6 @@ contract PuzzleWallet {
 
 ## The Solution
 
-```apache
-
-```
-
 This level was much harder then the previous ones. The first vulnerability was clear after first sight: We have a Proxy contract and an implementation contract that do not match in Storage. Calls made on the proxy override values on the implementation and vice virca. I know that the storage is stored on the Proxy and the logic does not contain any data - if we stick to the delegatecall pattern.
 
 It is obvious to make the me first owner of the implementation. Why is this important? Only whitelisted users can interact with the implementation. For being whitelisted I have to be the owner. The attack makes first the attacker as an owner of the implementation by calling `proposeNewAdmin(address _newAdmin)`. This sets the pendingAdmin variable, but in a delegate call an owner address is expected here, therefore I am the owner of implemntation now, when I use a delegate call, next set is to whitelist me with `addToWhitelist`
@@ -159,7 +155,12 @@ Unfortunately the method proposeNew admin is not there, I switched therefore to 
    }
 ```
 
-To be able to deposit or
+As immediate next step I whitelist me throught the browser console, so I am allowed to interact with the contract and fulfill the require from the onlyWhitelisted modifier.
+
+```àppache
+// whitelist the owner
+await contract.addToWhitelist(player)
+```
 
 After this task, I am the owner of the implementation contract but now the admin of the proxy. For this the next step is to drain all eth out of the contract with a nested multicall.
 
