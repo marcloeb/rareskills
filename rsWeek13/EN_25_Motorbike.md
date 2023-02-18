@@ -1,6 +1,6 @@
 # Ethernaut 25: Motorbike
 
-Learn about the UUPS pattern. Initalization of a implementation combined with a delegatecall on the implementation will give a security breach.
+Learn about the UUPS pattern. Initalization of a implementation combined with a delegatecall on the implementation is a security breach.
 
 ## The Task Intro
 
@@ -133,7 +133,7 @@ Looking at the proxy it seems like I can do nothing through it, on the implement
 
 That lead my focus to the implementation contract, can I initalize the contract on the implementation level and be the upgrader myself? Yes - thats possible, no protection! This protection only resides on the Proxy level, there is the storage. Strange that there is no protection for this. Ok.
 
-After I am upgrader of the contract, I want to upgrade the contract to a contract I created that only contains a function kill with a selfdestruct statement. Thats it:
+After I am upgrader of the contract, I want to upgrade the contract to a contract I created that only contains a function kill with a selfdestruct statement. Here my solution:
 
 ````apache
 // get the implementation address
@@ -159,7 +159,7 @@ contract AttackMotorbike {
 }
 ```
 
-This is the new implementation I want to upgrade to and call the kill function. To do this I create two function selectors - upgradeToAndCall and kill. With the web3 library the only way to call a function with parameters is sentTransfer, for this I need to encode the full function with web3.eth.encodeFunctionCall. This function takes the function signature as json and followed with the parameters in an array. Unfortunately no method is there for adding the function selector as string.
+This is the new implementation I want to upgrade to and call the kill function. To do this I create one function selectors - kill. With the web3 library the only way to call a function with parameters is sentTransfer, for this I need to encode the full function with web3.eth.encodeFunctionCall. This function takes the function signature as json and followed with the parameters in an array. Unfortunately no method is there for adding the function selector as string. After encoding I use sendTransaction to the implementation contract.
 
 ```apache
 // encode the kill function
@@ -188,4 +188,6 @@ await web3.eth.sendTransaction({from: player, to: "implementationAddress", data:
 
 ```
 
-Done 🎉️. The hardest part of this exercise was to understand the vulnerability of uninitalized implementation contracts. The proxy needs to initalize the implementation in the constructor. But this is not enough, because storage is hold on the proxy level. In this exercise I was able to initalize the implementation contract with its own storage, allowing me to change the implementation in its own storage and finally use selfdestruct :-), making the proxy contract useless.
+Done 🎉️. The hardest part of this exercise was to understand the vulnerability of uninitalized implementation contracts even after an initialization from the proxy: Remember, the storage is on the proxy, not on the implementation itself.
+
+The proxy needs to initalize the implementation in the constructor. But this is not enough, because storage is hold on the proxy level. In this exercise I was able to initalize the implementation contract with its own storage, allowing me to change the implementation in its own storage and finally use selfdestruct :-), making the proxy contract useless.
