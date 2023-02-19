@@ -234,10 +234,6 @@ contract AttackClimber {
 
 ```
 
-Voila! The harhat test is passing :-)
-
-![test](assets/20230219_212239_Screenshot_2023-02-19 at 21.21.19.png)
-
 ## Conclusion
 
 Done 🎉️ ! What a thing, working through this exercises is fun! My major lesson: Don't be worried when everything looks confusing. This is part of the coding work! It is a lot of material to digest. Read the code, understand what the author is trying to achieve. Make research on your questions or at least note them and make reaserch later. It is a puzzle, step by step. Use all the resources you have. AND RESIST TO JUMP to different task to often. Try to finish one piece after the other. If you on the wrong track, note it, move to the next that looks more promising. As a rule of thumb I stay in a confusing area for about 1 hour. In the worst case, I sleep over it and re-asses the next day.
