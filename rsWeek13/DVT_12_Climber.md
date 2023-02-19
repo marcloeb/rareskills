@@ -109,10 +109,12 @@ values[2] = 0;
 data[2] = abi.encodeWithSignature("transferOwnership(address)", address(this));
 ```
 
-But how to pass the test `(getOperationState(id) != OperationState.ReadyForExecution)` in the execution function? It comes after the functioncall. If it would be before the function call, the attack above would be impossible. Still I need to pass the test.
+But how to pass the test `(getOperationState(id) != OperationState.ReadyForExecution)` in the execution function? It comes after the functioncall. If it would be before the function call, the attack above would be impossible. Still I need to pass the test, this works only if all elements are available.
 
 ```àpache
-
+function getOperationId(address[] calldata targets, uint256[] calldata values, bytes[] calldata dataElements, bytes32 salt) public pure returns (bytes32) {
+   return keccak256(abi.encode(targets, values, dataElements, salt));
+}
 ```
 
 So it is obvious to schedule the task myself. Here I lost quite some time, because I wanted to make a call like this:
@@ -129,7 +131,7 @@ data[3] = abi.encodeWithSignature("schedule(address[],uint256[],bytes[],bytes32)
 
 But it did not work!!! Why? The data value of the schedule function is not added in the data array and I create the signature. When I calculate the keccac256 with the execute function, that value is added. I have two different hashes, what makes this appoach useless. It took me quite some time to realize that there is no way to make that approach work.
 
-My solution then was to create another function in the attack contract that calculates the hash and calls the timelock's schedule function from this function ;-) Hey creative isn't it? But I needed as well help coming up with this! Alone probably this would have taken hours or days more.
+My solution then was to create another function in the attack contract that calculates the hash and calls the timelock's schedule function from this function ;-) Hey creative isn't it? But I needed as well help coming up with this! Alone probably this would have taken hours or days.
 
 With this the exploit was almost finished. My smart contract was proposer of the timelock contract and owner of the vault. To exploit I needed another contract I can upgrade to, and transfer all tokes to the attackes address. Here the full attacker contract:
 
@@ -231,6 +233,10 @@ contract AttackClimber {
 }
 
 ```
+
+Voila! The harhat test is passing :-)
+
+![test](assets/20230219_212239_Screenshot_2023-02-19 at 21.21.19.png)
 
 ## Conclusion
 
