@@ -18,6 +18,7 @@ There were no intro Videos given in this task, just a link to a [OpenZeppelin Cl
 
 - [Workshop Recap: Cheap contract deployment through Clones](https://blog.openzeppelin.com/workshop-recap-cheap-contract-deployment-through-clones)
 - [Minimal Proxy Contract | Solidity (0.7)](https://www.youtube.com/watch?v=9xqoK2nKkM4)
+- [Rareskills: EIP-1167 - Minimal Proxy Standard with Initialization (Clone pattern)](https://www.rareskills.io/post/eip-1167-minimal-proxy-standard-with-initialization-clone-pattern)
 
 The [OpenZeppelin Workshop](https://github.com/OpenZeppelin/workshops) was most helpful and doing exactly what I needed to do, therefore I decided to upgrade this sample from Solidity 0.6 to 0.8.17, bacause it is exactly what I need to achieve. Basically it compares the Clone pattern with the Proxy Pattern and a regular instantiation. For creating a contract the Naive/regular instantiation is the most expensive, followed by the proxy followed by the clone. This result makes sense, because each contract in the mentioned order has less and less functionality.
 
