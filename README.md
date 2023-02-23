@@ -46,6 +46,10 @@ I look forward for the next week with more gas optimization and programming task
 
 This two weeks where the most difficult assignment in the course. I created a 1155 ERC token purely in YUL. This was a hell of a journey, starting with about a week learning and research about the ERC1155 standard, intros into development with Foundry, learning about how values of different types are stored by solidity and how you handle memory and storage yourself in YUL. It was a huge learning experience, I was not sure I was capable of. I made my first experience with GitHub Co-Pilot, that was very valuable and showed the pros and cons of chatbots, helping with repeating code and discovering new code patterns, but as well hallucinating wrong code that introduces bugs that are very hard to track down. All in all such helpful 2 weeks, that I am proud of!!!
 
--- Week 13: Week 13: Smart Contract Upgrades ---
+-- Week 13-14: Week 13: Smart Contract Upgrades ---
+
+Smart Contract Upgrads seemed to be done in 1 week, but it was way too much work for me. There was less to watch but more open questions regarding cloning and delegate calls. 2 ethernaut challenges and 2 DAmn Vulneral Defi Challenges took quite some time as well, as well using the Open Zeppelin Upgrade plugins for the first time. These two weeks clarified my questions how to upgrade contracts. It is very obvious that in software develpment you need to fix bugs. On the other hand it is understandable that your code should work as good as it is possible, because a lot of money can be involved and things can go terribly wrong if you dont know what you are doing. It was a great week for me! Many learnings and working with production ready code like the TimeLock, AccessControl or the GnosisSafe. I felt like working on a real project. Feeling the pain of small errors I did not know about! I was expecting after the YUL weeks, which I finsihed earlier because of using Foundry, this week was a piece of cake, until I realized it was not! But the bigger is the learning. Cool lets see what happens next week!
+
+-- Week 15: ??? ---
 
 **\*** Follows **\***

@@ -107,7 +107,7 @@ Here we can inject our code and approve a token transfer first then transfer it 
 - Create a secondary contract for the approval of the transfer of the tokens, because in the constructor the bytecode of the contract is not yet deployed.
 - Create a ProxyGnosisSafe for all of the 4 users with factory.createProxyWithCallback - loop over the usersit.
 - Define an optional delegate call with data
-- ❤️❤️❤️ At the end call transferFrom to transfer the token from the user to the attacker ❤️❤️❤️
+- ❤️ At the end call transferFrom to transfer the token from the user to the attacker ❤️
 
 ```apache
 // SPDX-License-Identifier: MIT
@@ -183,20 +183,12 @@ Done 🎉️ ! This Damn Vulnerable Defi Challenge was easier to solve than chal
 
 Reading the contract from Gnosis Safe and dealing with not enough gas was my major issue with this challenge. The first was very useful learning experience! The second that painful so that I will never forget setting the gasLimit or the gas-reporter. BTW deoploying these contracts is very expensive, so it is obvious the technical persons in charge moved from redeploying the full implementation to clones/proxies for each wallet. GREAT Week 13/14 DONE 🎉️!
 
-······················|············|··············|·············|·············|···············|··············
-| Contract · Method · Min · Max · Avg · # calls · eur (avg) │
-······················|············|··············|·············|·············|···············|··············
-| DamnValuableToken · transfer · - · - · 52019 · 1 · - │
-······················|············|··············|·············|·············|···············|··············
-| Deployments · · % of limit · │
-···································|··············|·············|·············|···············|··············
-| BackdoorAttack · - · - · 1901125 · 6.3 % · - │
-···································|··············|·············|·············|···············|··············
-| DamnValuableToken · - · - · 1314704 · 4.4 % · - │
-···································|··············|·············|·············|···············|··············
-| GnosisSafe · - · - · 5464661 · 18.2 % · - │
-···································|··············|·············|·············|···············|··············
-| GnosisSafeProxyFactory · - · - · 1103530 · 3.7 % · - │
-···································|··············|·············|·············|···············|··············
-| WalletRegistry · - · - · 1387103 · 4.6 % · - │
-·----------------------------------|--------------|-------------|-------------|---------------|-------------·
+### Gas usage for contract deployment
+
+```àpache
+BackdoorAttack          1_901_125 gas
+DamnValuableToken       1_314_704 gas
+GnosisSafe              5_464_661 gas
+GnosisSafeProxyFactory  1_103_530 gas
+WalletRegistry          1_387_103 gas
+```
