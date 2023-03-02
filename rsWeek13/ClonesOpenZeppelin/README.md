@@ -8,10 +8,6 @@ The clone pattern is very similar to the proxy pattern. A proxy pattern has just
 
 Clone Pattern. Create a contract that lets people create new ERC20 tokens with a fixed supply easily. Compare the gas cost of the clone pattern to the gas cost of creating the entire contract
 
-```shell
-REPORT_GAS=true npx hardhat test
-```
-
 ## 2. The Solution
 
 There were no intro Videos given in this task, just a link to a [OpenZeppelin Clone Library](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/Clones.sol). So I watched a few Videos and found a OZ Workshop:

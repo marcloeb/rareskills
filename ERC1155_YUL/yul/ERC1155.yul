@@ -240,7 +240,7 @@ object "ERC1155YulPure" {
 
                 //copy uri from storage and save to memory
                 for {let i:=0} lt(i, numSlots) {i:=add(i,1)} {
-                    mstore(getMPtr(), sload(add(firstValuePos, i)))
+                    mstore(getMPtr(), sload(safeAdd(firstValuePos, i)))
                     incrMPtr()
                 }
                 returnData(startOffset, safeSub(getMPtr(),startOffset))
@@ -320,7 +320,7 @@ object "ERC1155YulPure" {
             function _safeTransferFrom(from, to, id, amount, _data, emitEvent) {
                  //_data offset, not used so far, because I did not implement the ERC1155Receiver interface nor the before/after hooks
 
-                require(or(eq(from, caller()), _isApprovedForAll(from, caller()))) 
+                require(or(eq(from, caller()), _isApprovedForAll(from, caller()))) // todo: clear the approval after the transfer
                         
                 // set balance for FROM
                 let offsetFrom := nestedMappingPos(1, from, id)
