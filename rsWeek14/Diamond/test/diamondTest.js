@@ -395,6 +395,31 @@ describe('DiamondTest', async function () {
     expect(await diamondERC20Facet.erc20balanceOf(user2.address)).to.equal(100);
   });
 
+  it("it should approve user3 to spend user2's ERC20 tokens", async () => {
+    // Get 4 different users
+    const [user1, user2, user3, user4] = await ethers.getSigners();
+
+    // approve user3 to spend user2's ERC20 tokens
+    await diamondERC20Facet.connect(user2).erc20approve(user3.address, 20);
+
+    //user 3 transfers erc20 tokens from user2 to user4
+    await diamondERC20Facet
+      .connect(user3)
+      .erc20transferFrom(user2.address, user4.address, 20);
+    expect(await diamondERC20Facet.erc20balanceOf(user2.address)).to.equal(80);
+    expect(await diamondERC20Facet.erc20balanceOf(user4.address)).to.equal(20);
+  });
+
+  it('user2 transfers 20 ERC20 tokens to user1', async () => {
+    // Get 4 different users
+    const [user1, user2, user3, user4] = await ethers.getSigners();
+
+    //user 2 transfers erc20 tokens from user2 to user1
+    await diamondERC20Facet.connect(user2).erc20transfer(user1.address, 20);
+    expect(await diamondERC20Facet.erc20balanceOf(user2.address)).to.equal(60);
+    expect(await diamondERC20Facet.erc20balanceOf(user1.address)).to.equal(20);
+  });
+
   it('should mint an NFT Token 5 to user2 by transfering 20 ERC20 tokens from user2 to the diamond contract', async () => {
     // Get 4 different users
     const [user1, user2, user3, user4] = await ethers.getSigners();
@@ -405,7 +430,7 @@ describe('DiamondTest', async function () {
     expect(await diamondNftFacet.ownerOf(5)).to.equal(user2.address);
 
     //check that user2 has 80 ERC20 tokens
-    expect(await diamondERC20Facet.erc20balanceOf(user2.address)).to.equal(80);
+    expect(await diamondERC20Facet.erc20balanceOf(user2.address)).to.equal(40);
 
     //check that the diamond contract has 20 ERC20 tokens
     expect(await diamondERC20Facet.erc20balanceOf(diamondAddress)).to.equal(20);
