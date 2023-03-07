@@ -36,6 +36,9 @@ The resources I used:
 - [Awesome Diamonds: The offical list for dimonds written by Nick Mudge](https://github.com/mudgen/awesome-diamonds)
 - [Diamond Standard with Nick Mudge | Solidity Fridays (Jul22)](https://www.youtube.com/watch?v=9-MYz75FA8o)
 - [EIP-2535: Diamond Standard with Nick Mudge (Mar20)](https://www.youtube.com/watch?v=64VfajtPGJ4)
+- [Nick Mudges Diamond1-hardhat Example](https://github.com/mudgen/diamond-1-hardhat)
+- [Jespers work on week 14](https://github.com/jesperkristensen58/example-diamond-proxy-contract)
+- [Aavegotchi Diamond Contract](https://github.com/aavegotchi/aavegotchi-contracts/tree/master/contracts/Aavegotchi)
 
 ## The Solution
 
@@ -46,5 +49,7 @@ One important concept to grasp is that a function can exist only once in the ent
 I worked on the [dimand1-hardhat](https://github.com/mudgen/diamond-1-hardhat) example from Nick Mudge, and added two facets - one NFTFacet for minting and a ERC20Facet for paying the Facet. The two facets are deployed in the deploy.js script and the test take place in the diamondTest.js.
 
 A real world project. As usual it is very hard to control all the things so testing all elements is probably the most important thing for a safe project.
+
+My major work was to make the example 1 from Nick Mudge work, understand his code, integrate the two new facets (with unique function names), understand Nick Mudge´s tests and create new tests for the methods.
 
 Done 🎉️.
