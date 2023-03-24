@@ -63,6 +63,7 @@ contract NftAirdropTest is Test {
     }
 
     function testMintWithMapping() public {
+        nftAirdrop.setMintingType(1);
         nftAirdrop.mintWithMapping{value: 0.1 ether}(merkleProofMapping());
         assertEq(nftAirdrop.ownerOf(0), address(this));
 
@@ -71,6 +72,8 @@ contract NftAirdropTest is Test {
     }
 
     function testMintWithBitMap() public {
+        nftAirdrop.setMintingType(2);
+
         vm.expectRevert("Unauthorized mint!");
         nftAirdrop.mintWithBitMap{value: 0.1 ether}(merkleProofBitmap(), 0);
 

@@ -3,7 +3,6 @@
 pragma solidity 0.8.18;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
@@ -38,13 +37,14 @@ contract MultiDelegatecall {
     }
 }
 
-contract NftAirdrop is ERC721, ERC721URIStorage, ReentrancyGuard, Ownable, MultiDelegatecall {
+contract NftAirdrop is ERC721, ERC721URIStorage, Ownable, MultiDelegatecall {
     /** Initialization **/
     //NFT
-    uint256 totalSupply;
-    uint256 airDropSupply;
-    uint256 tokenIdCounter;
-    uint256 private constant NFT_COST = 0.1 ether;
+    uint256 public mintingType;
+    uint256 public totalSupply;
+    uint256 public airDropSupply;
+    uint256 public tokenIdCounter;
+    uint256 public constant NFT_COST = 0.1 ether;
 
     //Commit Reveal
     string public NFT_PROVENANCE = "";
@@ -103,6 +103,10 @@ contract NftAirdrop is ERC721, ERC721URIStorage, ReentrancyGuard, Ownable, Multi
         allowedMulticallFunctions[0] = bytes4(abi.encodeWithSelector(transferFrom.selector));
     }
 
+    function setMintingType(uint256 _mintingType) external onlyOwner {
+        mintingType = _mintingType; // 0 = not set, 1 = mapping, 2 = bitmap
+    }
+
     /** Airdrops and regular minting **/
 
     modifier mintingAllowed(NftState _state) {
@@ -134,11 +138,14 @@ contract NftAirdrop is ERC721, ERC721URIStorage, ReentrancyGuard, Ownable, Multi
         }
     }
 
-    function mint() external payable nonReentrant mintingAllowed(NftState.PUBLIC) {
+    function mint() external payable mintingAllowed(NftState.PUBLIC) {
         return _mint(_msgSender(), tokenIdCounter++);
     }
 
-    function mintWithMapping(bytes32[] calldata proof) external payable nonReentrant mintingAllowed(NftState.PRESALE) {
+    function mintWithMapping(bytes32[] calldata proof) external payable mintingAllowed(NftState.PRESALE) {
+        require(mintingType != 0, "minting type not set");
+        require(mintingType == 1, "mintWithBitMap in use, call mintWithMapping instead");
+
         _verifyWithMapping(proof);
 
         require(claimedMapping[_msgSender()] == 0, "Already claimed airdrop NFT");
@@ -147,7 +154,9 @@ contract NftAirdrop is ERC721, ERC721URIStorage, ReentrancyGuard, Ownable, Multi
         return _mint(_msgSender(), tokenIdCounter++);
     }
 
-    function mintWithBitMap(bytes32[] calldata proof, uint256 ticketNumber) external payable nonReentrant mintingAllowed(NftState.PRESALE) {
+    function mintWithBitMap(bytes32[] calldata proof, uint256 ticketNumber) external payable mintingAllowed(NftState.PRESALE) {
+        require(mintingType != 0, "minting type not set");
+        require(mintingType == 2, "mintWithBitMap in use, call mintWithBitMap instead");
         _verifyWithBitmap(proof, ticketNumber);
 
         require(claimedBitmap.get(ticketNumber), "Already claimed airdrop NFT");

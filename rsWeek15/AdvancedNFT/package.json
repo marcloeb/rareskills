@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.2",
-    "@openzeppelin/merkle-tree": "^1.0.3"
+    "@openzeppelin/merkle-tree": "^1.0.3",
+    "dotenv": "^16.0.3"
   }
 }

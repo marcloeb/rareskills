@@ -1,32 +1,35 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
-const hre = require("hardhat");
-
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  let owner = await ethers.getSigner(network.config.from);
+  console.log(`Deploying contracts with the account: ${owner.address}`);
+  console.log('Account balance:', (await owner.getBalance()).toString());
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+  const NftAirdrop = await ethers.getContractFactory('NftAirdrop');
+  const nftAirdrop = await NftAirdrop.deploy(
+    'NFT with Airdrop',
+    'NFTAD',
+    5000,
+    1024,
+    '0x89c7b258591ebbd0b909c231d76cae91623faae44010c236b372a56c18ab20c1',
+    '0x6277b402a85f4050fba731bef9d5401f39631d7beb5d285fb811ee8b480d857b'
   );
+
+  await nftAirdrop.deployed();
+
+  await nftAirdrop.setMintingType(2); // 0 = not set, 1 = mapping, 2 = bitmap
+
+  console.log('NFT Airdrop address:', nftAirdrop.address);
+  console.log('Deployment completed.');
+
+  console.log('Transferring ownership of the contract to the multisig...');
+  const gnosis_safe_address = '0x0AB42f823bBc16BAFc22823f553dDd46e644b528';
+  await nftAirdrop.transferOwnership(gnosis_safe_address);
+
+  console.log('✓ Ownership transferred to the multisig at: ', await nftAirdrop.owner());
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
