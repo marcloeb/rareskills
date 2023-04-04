@@ -2,7 +2,25 @@
 	path = ERC1155_YUL/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
 [submodule "lib/forge-std"]
-	branch = v1.5.0
+	branch = v1.5.2
 [submodule "rsWeek14/ExploitConstructor/lib/forge-std"]
 	path = rsWeek14/ExploitConstructor/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek14/StrangeV4/lib/forge-std"]
+	path = rsWeek14/StrangeV4/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek14/Diamond/lib/forge-std"]
+	path = rsWeek14/Diamond/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek15/MultiDelegateCall/lib/forge-std"]
+	path = rsWeek15/MultiDelegateCall/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek15/AdvancedNFT/lib/forge-std"]
+	path = rsWeek15/AdvancedNFT/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek16/VerifySignature/lib/forge-std"]
+	path = rsWeek16/VerifySignature/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "rsWeek16/GaslessExchange/lib/forge-std"]
+	path = rsWeek16/GaslessExchange/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
