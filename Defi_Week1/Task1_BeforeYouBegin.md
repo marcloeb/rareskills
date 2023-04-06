@@ -27,6 +27,8 @@ I revisited the documentation and found [Exploring Chainlink VRF v2 | Developer 
 
 So I put a project together BeforeYouBegin. It is a ERC721 token that generates a random tokenID with the VRF Oracle. Important take away is that the VRF Oracle is not free. You have to pay for the request. The request is paid with LINK tokens. So you have to have LINK tokens on your account. I used the Sepolia Test Network. The second important take away is that a oracle needs to be requested and a while later a response is given. So you have to wait for the response. My mint function triggers the request for a random number and the response generates the ID and mints the NFT. While generating the ID it checks if the ID is already minted. and moves to the next free number or if all is already minted it reverts.
 
+This contract is deployed and verified on the Sepolia Test Network with the address 0x02E9Bcb1F876b51feD0bef1Cd982D64bEC656Ed7.
+
 ## Conclusion
 
 Quite a good introduction. I realize I could learn much more but then I would run out of time. I look forward reading the whitepaper of Chainlink and study other facets of chainlink.
