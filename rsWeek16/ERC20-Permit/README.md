@@ -10,10 +10,11 @@ To speed up development time I investigated two project that solved that problem
 
 - [Jesper Kristensen - ERC20 Permit](https://github.com/jesperkristensen58/ERC712-Permit-Example)
 - [Raul Martin - ERC20 Permit](https://github.com/Ramarti/rareskills-permit/tree/main/web)
+- [EIP2612: ERC20 Permit](https://eips.ethereum.org/EIPS/eip-2612)
 
 ## ERC20 Permit Learnings:
 
-ERC20 Permit is an extension to the ERC20 Token Standard. Instead of a user signing an approve transaction, he signs the data "approve(spender, amount)". The result can be passed by anyone. This other user calls the permit function where we simply retrieve the signer address using ecrecover, followed by approve(signer, spender, amount).
+ERC20 Permit is an extension to the ERC20 Token Standard. Instead of a user signing an approve transaction, he signs strucured data containing the permit functions. The result can be passed by anyone. This other user calls the permit function where we simply retrieve the signer address using ecrecover. If the signed user matches the passed owner. ERC20 permit execute the \_approve(signer, spender, amount) function.
 
 Implementation of the ERC20 Permit extension allowing approvals to be made via signatures. By not relying on {IERC20-approve}, the token holder account doesn't need to send a transaction, and thus is not required to hold Ether at all, which eliminates the initial gas cost of approval, it is just a sign of the inital user.
 
