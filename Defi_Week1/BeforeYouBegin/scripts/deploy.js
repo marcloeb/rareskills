@@ -6,13 +6,22 @@
 // global scope, and execute the script.
 const hre = require('hardhat');
 
+// async function main() {
+//   const NFT_VRF = await hre.ethers.getContractFactory('NFT_VRF');
+//   const nft_vrf = await NFT_VRF.deploy();
+
+//   await nft_vrf.deployed();
+
+//   console.log(`NFT_VRF deployed to ${nft_vrf.address}`);
+// }
+
 async function main() {
-  const NFT_VRF = await hre.ethers.getContractFactory('NFT_VRF');
-  const nft_vrf = await NFT_VRF.deploy();
+  const PriceFeed = await hre.ethers.getContractFactory('PriceFeed');
+  const priceFeed = await PriceFeed.deploy();
 
-  await nft_vrf.deployed();
+  await priceFeed.deployed();
 
-  console.log(`NFT_VRF deployed to ${nft_vrf.address}`);
+  console.log(`Price Feed deployed to ${priceFeed.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
